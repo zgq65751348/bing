@@ -1,0 +1,408 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.microsoft.bing.mybatis.mapper.garbage.GarbageMapper">
+  <resultMap id="BaseResultMap" type="com.microsoft.bing.mybatis.model.garbage.Garbage">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="summoner" jdbcType="VARCHAR" property="summoner" />
+    <result column="hero" jdbcType="VARCHAR" property="hero" />
+    <result column="finish" jdbcType="VARCHAR" property="finish" />
+    <result column="reasons_reporting" jdbcType="VARCHAR" property="reasonsReporting" />
+    <result column="times" jdbcType="TIMESTAMP" property="times" />
+    <result column="informants" jdbcType="VARCHAR" property="informants" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, summoner, hero, finish, reasons_reporting, times, informants
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from garbage
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from garbage
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.microsoft.bing.mybatis.model.garbage.GarbageExample">
+    delete from garbage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.microsoft.bing.mybatis.model.garbage.Garbage">
+    insert into garbage (id, summoner, hero, 
+      finish, reasons_reporting, times, 
+      informants)
+    values (#{id,jdbcType=BIGINT}, #{summoner,jdbcType=VARCHAR}, #{hero,jdbcType=VARCHAR}, 
+      #{finish,jdbcType=VARCHAR}, #{reasonsReporting,jdbcType=VARCHAR}, #{times,jdbcType=TIMESTAMP}, 
+      #{informants,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.microsoft.bing.mybatis.model.garbage.Garbage">
+    insert into garbage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="summoner != null">
+        summoner,
+      </if>
+      <if test="hero != null">
+        hero,
+      </if>
+      <if test="finish != null">
+        finish,
+      </if>
+      <if test="reasonsReporting != null">
+        reasons_reporting,
+      </if>
+      <if test="times != null">
+        times,
+      </if>
+      <if test="informants != null">
+        informants,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="summoner != null">
+        #{summoner,jdbcType=VARCHAR},
+      </if>
+      <if test="hero != null">
+        #{hero,jdbcType=VARCHAR},
+      </if>
+      <if test="finish != null">
+        #{finish,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonsReporting != null">
+        #{reasonsReporting,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        #{times,jdbcType=TIMESTAMP},
+      </if>
+      <if test="informants != null">
+        #{informants,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.microsoft.bing.mybatis.model.garbage.GarbageExample" resultType="java.lang.Long">
+    select count(*) from garbage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update garbage
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.summoner != null">
+        summoner = #{record.summoner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hero != null">
+        hero = #{record.hero,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finish != null">
+        finish = #{record.finish,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reasonsReporting != null">
+        reasons_reporting = #{record.reasonsReporting,jdbcType=VARCHAR},
+      </if>
+      <if test="record.times != null">
+        times = #{record.times,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.informants != null">
+        informants = #{record.informants,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.microsoft.bing.mybatis.model.garbage.Garbage">
+    update garbage
+    <set>
+      <if test="summoner != null">
+        summoner = #{summoner,jdbcType=VARCHAR},
+      </if>
+      <if test="hero != null">
+        hero = #{hero,jdbcType=VARCHAR},
+      </if>
+      <if test="finish != null">
+        finish = #{finish,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonsReporting != null">
+        reasons_reporting = #{reasonsReporting,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        times = #{times,jdbcType=TIMESTAMP},
+      </if>
+      <if test="informants != null">
+        informants = #{informants,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <resultMap id="BaseResultMap" type="com.microsoft.bing.mybatis.model.garbage.Garbage">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="summoner" jdbcType="VARCHAR" property="summoner" />
+    <result column="hero" jdbcType="VARCHAR" property="hero" />
+    <result column="finish" jdbcType="VARCHAR" property="finish" />
+    <result column="reasons_reporting" jdbcType="VARCHAR" property="reasonsReporting" />
+    <result column="times" jdbcType="TIMESTAMP" property="times" />
+    <result column="informants" jdbcType="VARCHAR" property="informants" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, summoner, hero, finish, reasons_reporting, times, informants
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from garbage
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from garbage
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.microsoft.bing.mybatis.model.garbage.GarbageExample">
+    delete from garbage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.microsoft.bing.mybatis.model.garbage.Garbage">
+    insert into garbage (id, summoner, hero, 
+      finish, reasons_reporting, times, 
+      informants)
+    values (#{id,jdbcType=BIGINT}, #{summoner,jdbcType=VARCHAR}, #{hero,jdbcType=VARCHAR}, 
+      #{finish,jdbcType=VARCHAR}, #{reasonsReporting,jdbcType=VARCHAR}, #{times,jdbcType=TIMESTAMP}, 
+      #{informants,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.microsoft.bing.mybatis.model.garbage.Garbage">
+    insert into garbage
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="summoner != null">
+        summoner,
+      </if>
+      <if test="hero != null">
+        hero,
+      </if>
+      <if test="finish != null">
+        finish,
+      </if>
+      <if test="reasonsReporting != null">
+        reasons_reporting,
+      </if>
+      <if test="times != null">
+        times,
+      </if>
+      <if test="informants != null">
+        informants,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="summoner != null">
+        #{summoner,jdbcType=VARCHAR},
+      </if>
+      <if test="hero != null">
+        #{hero,jdbcType=VARCHAR},
+      </if>
+      <if test="finish != null">
+        #{finish,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonsReporting != null">
+        #{reasonsReporting,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        #{times,jdbcType=TIMESTAMP},
+      </if>
+      <if test="informants != null">
+        #{informants,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.microsoft.bing.mybatis.model.garbage.GarbageExample" resultType="java.lang.Long">
+    select count(*) from garbage
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update garbage
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.summoner != null">
+        summoner = #{record.summoner,jdbcType=VARCHAR},
+      </if>
+      <if test="record.hero != null">
+        hero = #{record.hero,jdbcType=VARCHAR},
+      </if>
+      <if test="record.finish != null">
+        finish = #{record.finish,jdbcType=VARCHAR},
+      </if>
+      <if test="record.reasonsReporting != null">
+        reasons_reporting = #{record.reasonsReporting,jdbcType=VARCHAR},
+      </if>
+      <if test="record.times != null">
+        times = #{record.times,jdbcType=TIMESTAMP},
+      </if>
+      <if test="record.informants != null">
+        informants = #{record.informants,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.microsoft.bing.mybatis.model.garbage.Garbage">
+    update garbage
+    <set>
+      <if test="summoner != null">
+        summoner = #{summoner,jdbcType=VARCHAR},
+      </if>
+      <if test="hero != null">
+        hero = #{hero,jdbcType=VARCHAR},
+      </if>
+      <if test="finish != null">
+        finish = #{finish,jdbcType=VARCHAR},
+      </if>
+      <if test="reasonsReporting != null">
+        reasons_reporting = #{reasonsReporting,jdbcType=VARCHAR},
+      </if>
+      <if test="times != null">
+        times = #{times,jdbcType=TIMESTAMP},
+      </if>
+      <if test="informants != null">
+        informants = #{informants,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+</mapper>
